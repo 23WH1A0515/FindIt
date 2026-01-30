@@ -270,7 +270,7 @@ Mobile application support
 
 FindIt is a practical, beginner-friendly full-stack project that solves a real-world problem while demonstrating core MERN / MEAN stack concepts.
 
-It is suitable for academic submission, project demonstrations, and portfolio showcasing.
+
 
 
 
