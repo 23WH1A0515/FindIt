@@ -12,9 +12,20 @@ exports.register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide name, email and password",
+      });
+    }
+
     const userExists = await User.findOne({ email });
+
     if (userExists) {
-      return res.status(400).json({ success: false, message: "User already exists" });
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,6 +40,7 @@ exports.register = async (req, res, next) => {
       success: true,
       token: generateToken(user._id, user.role),
     });
+
   } catch (error) {
     next(error);
   }
@@ -38,20 +50,29 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
-      return res.status(400).json({ success: false, message: "Invalid credentials" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
-      return res.status(400).json({ success: false, message: "Invalid credentials" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
     }
 
     res.json({
       success: true,
       token: generateToken(user._id, user.role),
     });
+
   } catch (error) {
     next(error);
   }
@@ -65,6 +86,7 @@ exports.getMe = async (req, res, next) => {
       success: true,
       data: user,
     });
+
   } catch (error) {
     next(error);
   }

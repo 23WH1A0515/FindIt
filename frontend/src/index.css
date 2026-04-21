@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --manga-black: #080808;
+  --cyber-yellow: #facc15;
+}
+
+body {
+  margin: 0;
+  background-color: #e5e7eb;
+  background-image: radial-gradient(var(--manga-black) 0.8px, transparent 0.8px);
+  background-size: 18px 18px;
+  color: var(--manga-black);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden; /* Prevents side-scrolling */
+}
+
+/* Responsive Manga Card */
+.manga-card-enhanced {
+  background: #ffffff;
+  border: 3px solid var(--manga-black);
+  box-shadow: 6px 6px 0px 0px var(--manga-black); /* Smaller shadow for better fit */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  height: 100%; /* Ensures all cards in a row are same height */
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .manga-card-enhanced {
+    box-shadow: 10px 10px 0px 0px var(--manga-black);
+  }
+}
+
+.speed-text {
+  font-style: italic;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
